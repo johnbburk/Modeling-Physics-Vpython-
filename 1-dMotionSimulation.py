@@ -9,8 +9,8 @@ from visual.graph import *
 scene.title = "1-D motion simulation"
 
 # Define scene objects
-field = box(pos =vector(0,0,0),size=(300,10,100),color = color.green,opacity = 0.3)
-ball = sphere(pos = vector(-150,0,0), radius=5, color = color.blue)
+field = box(size=(300,10,100),color = color.green,opacity = 0.3)
+ball = sphere(radius=5, color = color.blue)
 
 # Set up graph and onscreen curve
 graph = PhysGraph()
@@ -20,17 +20,28 @@ trail = curve(color = color.yellow, radius = 1)
 #IMPORTANT Question: Why do you need 16 Markers to divide the field into 15 intervals? 
 axis = PhysAxis(field, 16)
 
-
-# Define physics parameters
-mball=0.6 #mass of ball
-vball = vector(30,0,0) #initial velocity of ball in (vx,vy,vz) form
-
 # Define time parameters
 t=0 #starting time
 deltat = 0.001  #time step
 
 # Set timer in top right of screen
 timerDisplay = PhysTimer(150,150)
+
+# Set up MotionMap to display velocity vectors
+velocityMap = MotionMap(ball, tf,10, markerScale = 0.5,labelMarkerOrder = false)
+
+###END OF SETUP
+
+###SET INITIAL CONDITIONS
+
+# Define physics parameters
+mball=0.6 #mass of ball
+
+#set initial conditions for object motion
+field.pos = vector(0,0,0) #place center of field at (0,0,0)
+ball.pos = vector(-150,0,0) #set starting position of ball as (-150,0,0)
+vball = vector(30,0,0) #initial velocity of ball in (vx,vy,vz) form
+
 
 #calculate time for object to cross the field (think carfully about assumptions here)
 tf=field.size.x/vball.x
@@ -40,12 +51,10 @@ motionMap = MotionMap(ball, tf, 10, markerType="breadcrumbs",    #drop 10 breadc
                       labelMarkerOffset=vector(0,-20,0),         #put lables below the marker
                       dropTime=True, timeOffset=vector(0,35,0)) # put times above the marker
 
-# Set up MotionMap to display velocity vectors
-velocityMap = MotionMap(ball, tf,10, markerScale = 0.5,labelMarkerOrder = false)
+###END INITIAL CONDITIONS
 
-###END OF SETUP
 
-# MAIN UPDATE LOOP; perform physics updates and drawing
+### MAIN UPDATE LOOP; perform physics updates and drawing
 while ball.pos.x < 150:  #while the ball's x-position is less than 150
     # Required to make animation visible / refresh smoothly (keeps program from running faster than 1000 frames/s)
     rate(1000)    
