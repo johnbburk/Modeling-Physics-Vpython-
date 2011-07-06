@@ -73,6 +73,8 @@ while ball.pos.x < 150:  #while the ball's x-position is less than 150
     t = t + deltat
     timerDisplay.update(t)
     
-
-print t
-print ball.pos
+###END MAIN UPDATE LOOP
+###POST LOOP 
+    
+print t   #print the final time (Question: what should this be?)
+print ball.pos  #print the final position (Question: What should this be?)
