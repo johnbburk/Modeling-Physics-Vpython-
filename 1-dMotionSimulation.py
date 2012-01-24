@@ -27,8 +27,7 @@ deltat = 0.001  #time step
 # Set timer in top right of screen
 timerDisplay = PhysTimer(150,150)
 
-# Set up MotionMap to display velocity vectors
-velocityMap = MotionMap(ball, tf,10, markerScale = 0.5,labelMarkerOrder = false)
+
 
 ###END OF SETUP
 
@@ -50,6 +49,8 @@ tf=field.size.x/vball.x
 motionMap = MotionMap(ball, tf, 10, markerType="breadcrumbs",    #drop 10 breadcrumbs between t=0 and tf
                       labelMarkerOffset=vector(0,-20,0),         #put lables below the marker
                       dropTime=True, timeOffset=vector(0,35,0)) # put times above the marker
+# Set up MotionMap to display velocity vectors
+velocityMap = MotionMap(ball, tf,10, markerScale = 0.5,labelMarkerOrder = false)
 
 ###END INITIAL CONDITIONS
 
